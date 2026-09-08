@@ -98,6 +98,7 @@
             btnAdd.TabIndex = 6;
             btnAdd.Text = "Add";
             btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Click += btnAdd_Click;
             // 
             // btnCalculate
             // 
@@ -107,6 +108,7 @@
             btnCalculate.TabIndex = 7;
             btnCalculate.Text = "Calculate";
             btnCalculate.UseVisualStyleBackColor = true;
+            btnCalculate.Click += btnCalculate_Click;
             // 
             // txtCalculate
             // 
