@@ -1,9 +1,9 @@
 namespace BudgetTracker
 {
-    public partial class Form1 : Form
+    public partial class BudgetTracker : Form
     {
         List<decimal> bills = new List<decimal>();
-        public Form1()
+        public BudgetTracker()
         {
             InitializeComponent();
         }
@@ -52,6 +52,30 @@ namespace BudgetTracker
             {
                 MessageBox.Show("Please enter a valid income amount.");
             }
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            int selectedIndex = lstBills.SelectedIndex;
+            if (selectedIndex != -1)
+            {
+                bills.RemoveAt(selectedIndex);
+                lstBills.Items.RemoveAt(selectedIndex);
+            }
+            else
+            {
+                MessageBox.Show("Please select a bill to remove.");
+            }
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            lstBills.Items.Clear();
+            bills.Clear();
+            txtCalculate.Clear();
+            txtIncome.Clear();
+            txtBills.Clear();
+            MessageBox.Show("Everything has been cleared.");
         }
     }
 }

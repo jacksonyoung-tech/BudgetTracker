@@ -1,6 +1,6 @@
 ﻿namespace BudgetTracker
 {
-    partial class Form1
+    partial class BudgetTracker
     {
         /// <summary>
         ///  Required designer variable.
@@ -37,6 +37,8 @@
             btnAdd = new Button();
             btnCalculate = new Button();
             txtCalculate = new TextBox();
+            btnClear = new Button();
+            btnRemove = new Button();
             SuspendLayout();
             // 
             // lblIncome
@@ -119,11 +121,33 @@
             txtCalculate.Size = new Size(180, 129);
             txtCalculate.TabIndex = 8;
             // 
-            // Form1
+            // btnClear
+            // 
+            btnClear.Location = new Point(210, 518);
+            btnClear.Name = "btnClear";
+            btnClear.Size = new Size(112, 34);
+            btnClear.TabIndex = 9;
+            btnClear.Text = "Clear All";
+            btnClear.UseVisualStyleBackColor = true;
+            btnClear.Click += btnClear_Click;
+            // 
+            // btnRemove
+            // 
+            btnRemove.Location = new Point(92, 518);
+            btnRemove.Name = "btnRemove";
+            btnRemove.Size = new Size(112, 34);
+            btnRemove.TabIndex = 10;
+            btnRemove.Text = "Remove Bill";
+            btnRemove.UseVisualStyleBackColor = true;
+            btnRemove.Click += btnRemove_Click;
+            // 
+            // BudgetTracker
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1296, 490);
+            ClientSize = new Size(1296, 740);
+            Controls.Add(btnRemove);
+            Controls.Add(btnClear);
             Controls.Add(txtCalculate);
             Controls.Add(btnCalculate);
             Controls.Add(btnAdd);
@@ -133,8 +157,8 @@
             Controls.Add(lblBills);
             Controls.Add(lblWeeklyBills);
             Controls.Add(lblIncome);
-            Name = "Form1";
-            Text = "Form1";
+            Name = "BudgetTracker";
+            Text = "Budget Tracker";
             Load += Form1_Load;
             ResumeLayout(false);
             PerformLayout();
@@ -151,5 +175,7 @@
         private Button btnAdd;
         private Button btnCalculate;
         private TextBox txtCalculate;
+        private Button btnClear;
+        private Button btnRemove;
     }
 }
