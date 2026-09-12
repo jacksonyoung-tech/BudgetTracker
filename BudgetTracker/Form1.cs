@@ -2,7 +2,8 @@ namespace BudgetTracker
 {
     public partial class BudgetTracker : Form
     {
-        List<decimal> bills = new List<decimal>();
+        //List to store the bills entered by the user
+        List<Bill> bills = new List<Bill>();
         public BudgetTracker()
         {
             InitializeComponent();
@@ -21,29 +22,43 @@ namespace BudgetTracker
         private void btnAdd_Click(object sender, EventArgs e)
         {
             decimal bill;
-            if (decimal.TryParse(txtBills.Text, out bill))
+            //If statement to check if the amount entered is a valid decimal number
+            if (decimal.TryParse(txtAmount.Text, out bill))
             {
-                bills.Add(bill);
-                lstBills.Items.Add(bill.ToString("C"));
-                txtBills.Clear();
+                /*Nested if statement to check if the description is not empty or whitespace.
+                 If it is not empty, it will capitalize the first letter of the description and add the bill to the list*/
+                if (!string.IsNullOrWhiteSpace(txtDescription.Text))
+                {
+                    txtDescription.Text = txtDescription.Text.Substring(0, 1).ToUpper() + txtDescription.Text.Substring(1);
+                    bills.Add(new Bill { Amount = bill, Description = txtDescription.Text });
+                    lstBills.Items.Add($"{txtDescription.Text} - {bill.ToString("C")}");
+                    txtAmount.Clear();
+                    txtDescription.Clear();
+                }
+                else
+                {
+                    MessageBox.Show("Please enter a valid description.");
+                    txtDescription.Clear();
+                }
             }
             else
             {
                 MessageBox.Show("Please enter a valid number.");
-                txtBills.Clear();
+                txtAmount.Clear();
             }
         }
 
         private void btnCalculate_Click(object sender, EventArgs e)
         {
+            //This method calculates the total bills and subtracts it from the income to get the leftover amount
             decimal income;
             decimal totalBills = 0;
             decimal leftOver;
             if (decimal.TryParse(txtIncome.Text, out income))
             {
-                foreach (decimal bill in bills)
+                foreach (Bill bill in bills)
                 {
-                    totalBills += bill;
+                    totalBills += bill.Amount;
                 }
                 leftOver = income - totalBills;
                 txtCalculate.Text = leftOver.ToString("C");
@@ -74,7 +89,7 @@ namespace BudgetTracker
             bills.Clear();
             txtCalculate.Clear();
             txtIncome.Clear();
-            txtBills.Clear();
+            txtAmount.Clear();
             MessageBox.Show("Everything has been cleared.");
         }
     }
