@@ -1,3 +1,5 @@
+using Microsoft.VisualBasic;
+
 namespace BudgetTracker
 {
     public partial class BudgetTracker : Form
@@ -30,8 +32,8 @@ namespace BudgetTracker
                 if (!string.IsNullOrWhiteSpace(txtDescription.Text))
                 {
                     txtDescription.Text = txtDescription.Text.Substring(0, 1).ToUpper() + txtDescription.Text.Substring(1);
-                    bills.Add(new Bill { Amount = bill, Description = txtDescription.Text });
-                    lstBills.Items.Add($"{txtDescription.Text} - {bill.ToString("C")}");
+                    bills.Add(new Bill { Amount = bill, Description = txtDescription.Text, DueDate = dtpDueDate.Value.Date });
+                    lstBills.Items.Add($"Bill: {txtDescription.Text} | Due Date: {dtpDueDate.Value.Date.ToString("d")} | Amount: {bill.ToString("C")}");
                     txtAmount.Clear();
                     txtDescription.Clear();
                 }
@@ -92,5 +94,7 @@ namespace BudgetTracker
             txtAmount.Clear();
             MessageBox.Show("Everything has been cleared.");
         }
+
+    
     }
 }
