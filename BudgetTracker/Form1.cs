@@ -6,6 +6,42 @@ namespace BudgetTracker
     {
         //List to store the bills entered by the user
         List<Bill> bills = new List<Bill>();
+        private void CalculateBudget()
+        {
+            //This method calculates the total bills and subtracts it from the income to get the leftover amount
+            decimal income;
+            decimal totalBills = 0;
+            decimal leftOver;
+            decimal savingsAllocation = 0.5m; // 50% of leftover amount for savings
+            decimal personalAllocation = 0.3m; // 30% of leftover amount for personal spending
+            decimal emergencyAllocation = 0.2m; // 20% of leftover amount for emergency fund
+            decimal savings;
+            decimal personal;
+            decimal emergency;
+            if (decimal.TryParse(txtIncome.Text, out income))
+            {
+                foreach (Bill bill in bills)
+                {
+                    totalBills += bill.Amount;
+                }
+                leftOver = income - totalBills;
+                if (leftOver < 0)
+                {
+                    txtCalculate.Text = $"You are over budget by {Math.Abs(leftOver).ToString("C")}. Please review your bills.";
+                }
+                else
+                {
+                    savings = leftOver * savingsAllocation;
+                    personal = leftOver * personalAllocation;
+                    emergency = leftOver * emergencyAllocation;
+                    txtCalculate.Text = $"Remaining Money: {leftOver.ToString("C")}{Environment.NewLine}Savings: {savings.ToString("C")}{Environment.NewLine}Personal: {personal.ToString("C")}{Environment.NewLine}Emergency: {emergency.ToString("C")}";
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please enter a valid income amount.");
+            }
+        }
         public BudgetTracker()
         {
             InitializeComponent();
@@ -52,23 +88,7 @@ namespace BudgetTracker
 
         private void btnCalculate_Click(object sender, EventArgs e)
         {
-            //This method calculates the total bills and subtracts it from the income to get the leftover amount
-            decimal income;
-            decimal totalBills = 0;
-            decimal leftOver;
-            if (decimal.TryParse(txtIncome.Text, out income))
-            {
-                foreach (Bill bill in bills)
-                {
-                    totalBills += bill.Amount;
-                }
-                leftOver = income - totalBills;
-                txtCalculate.Text = leftOver.ToString("C");
-            }
-            else
-            {
-                MessageBox.Show("Please enter a valid income amount.");
-            }
+            CalculateBudget(); // Call the method to calculate the budget when the button is clicked
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
@@ -78,6 +98,11 @@ namespace BudgetTracker
             {
                 bills.RemoveAt(selectedIndex);
                 lstBills.Items.RemoveAt(selectedIndex);
+
+                CalculateBudget(); // Recalculate the budget after removing a bill
+
+                MessageBox.Show("Bill removed successfully.");
+
             }
             else
             {
@@ -92,6 +117,8 @@ namespace BudgetTracker
             txtCalculate.Clear();
             txtIncome.Clear();
             txtAmount.Clear();
+            txtDescription.Clear();
+
             MessageBox.Show("Everything has been cleared.");
         }
 
