@@ -20,6 +20,28 @@ namespace BudgetTracker
             decimal emergency;
             if (decimal.TryParse(txtIncome.Text, out income))
             {
+                if (cmbPayFrequency.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Please select a pay frequency.");
+                    return;
+                }
+                else  
+                {
+                    IncomeFrequency pay = (IncomeFrequency)cmbPayFrequency.SelectedItem;
+                    if (pay == IncomeFrequency.Weekly)
+                    {
+                        income *= 4; // Convert weekly income to monthly
+                    }
+                    else if (pay == IncomeFrequency.Fortnightly)
+                    {
+                        income *= 2; // Convert fortnightly income to monthly
+                    }
+                    else if (pay == IncomeFrequency.Monthly)
+                    {
+                        // No conversion needed for monthly income
+                    }
+                }
+                
                 foreach (Bill bill in bills)
                 {
                     totalBills += bill.Amount;
@@ -45,6 +67,11 @@ namespace BudgetTracker
         public BudgetTracker()
         {
             InitializeComponent();
+            
+            cmbPayFrequency.Text = "-- Select Frequency --";
+            cmbPayFrequency.Items.Add(IncomeFrequency.Weekly);
+            cmbPayFrequency.Items.Add(IncomeFrequency.Fortnightly);
+            cmbPayFrequency.Items.Add(IncomeFrequency.Monthly);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -121,7 +148,6 @@ namespace BudgetTracker
 
             MessageBox.Show("Everything has been cleared.");
         }
-
-    
     }
+
 }

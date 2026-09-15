@@ -43,35 +43,35 @@
             lblDescription = new Label();
             txtDescription = new TextBox();
             dtpDueDate = new DateTimePicker();
+            lblIncomeAmount = new Label();
+            lblPayFrequency = new Label();
+            cmbPayFrequency = new ComboBox();
             SuspendLayout();
             // 
             // lblIncome
             // 
             lblIncome.AutoSize = true;
-            lblIncome.Location = new Point(64, 31);
-            lblIncome.Margin = new Padding(2, 0, 2, 0);
+            lblIncome.Location = new Point(91, 52);
             lblIncome.Name = "lblIncome";
-            lblIncome.Size = new Size(88, 15);
+            lblIncome.Size = new Size(132, 25);
             lblIncome.TabIndex = 0;
             lblIncome.Text = "Weekly Income";
             // 
             // lblWeeklyBills
             // 
             lblWeeklyBills.AutoSize = true;
-            lblWeeklyBills.Location = new Point(64, 100);
-            lblWeeklyBills.Margin = new Padding(2, 0, 2, 0);
+            lblWeeklyBills.Location = new Point(91, 167);
             lblWeeklyBills.Name = "lblWeeklyBills";
-            lblWeeklyBills.Size = new Size(69, 15);
+            lblWeeklyBills.Size = new Size(103, 25);
             lblWeeklyBills.TabIndex = 1;
             lblWeeklyBills.Text = "Weekly Bills";
             // 
             // lblBills
             // 
             lblBills.AutoSize = true;
-            lblBills.Location = new Point(65, 204);
-            lblBills.Margin = new Padding(2, 0, 2, 0);
+            lblBills.Location = new Point(93, 340);
             lblBills.Name = "lblBills";
-            lblBills.Size = new Size(28, 15);
+            lblBills.Size = new Size(42, 25);
             lblBills.TabIndex = 2;
             lblBills.Text = "Bills";
             lblBills.Click += label3_Click;
@@ -80,35 +80,31 @@
             // 
             lstBills.FormattingEnabled = true;
             lstBills.HorizontalScrollbar = true;
-            lstBills.Location = new Point(64, 231);
-            lstBills.Margin = new Padding(2);
+            lstBills.Location = new Point(91, 385);
             lstBills.Name = "lstBills";
             lstBills.ScrollAlwaysVisible = true;
-            lstBills.Size = new Size(312, 199);
+            lstBills.Size = new Size(444, 329);
             lstBills.TabIndex = 3;
             // 
             // txtIncome
             // 
-            txtIncome.Location = new Point(64, 56);
-            txtIncome.Margin = new Padding(2);
+            txtIncome.Location = new Point(91, 93);
             txtIncome.Name = "txtIncome";
-            txtIncome.Size = new Size(106, 23);
+            txtIncome.Size = new Size(150, 31);
             txtIncome.TabIndex = 4;
             // 
             // txtAmount
             // 
-            txtAmount.Location = new Point(405, 162);
-            txtAmount.Margin = new Padding(2);
+            txtAmount.Location = new Point(579, 270);
             txtAmount.Name = "txtAmount";
-            txtAmount.Size = new Size(106, 23);
+            txtAmount.Size = new Size(150, 31);
             txtAmount.TabIndex = 5;
             // 
             // btnAdd
             // 
-            btnAdd.Location = new Point(544, 165);
-            btnAdd.Margin = new Padding(2);
+            btnAdd.Location = new Point(777, 275);
             btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(78, 20);
+            btnAdd.Size = new Size(111, 33);
             btnAdd.TabIndex = 6;
             btnAdd.Text = "Add";
             btnAdd.UseVisualStyleBackColor = true;
@@ -116,10 +112,9 @@
             // 
             // btnCalculate
             // 
-            btnCalculate.Location = new Point(418, 434);
-            btnCalculate.Margin = new Padding(2);
+            btnCalculate.Location = new Point(597, 723);
             btnCalculate.Name = "btnCalculate";
-            btnCalculate.Size = new Size(78, 20);
+            btnCalculate.Size = new Size(111, 33);
             btnCalculate.TabIndex = 7;
             btnCalculate.Text = "Calculate";
             btnCalculate.UseVisualStyleBackColor = true;
@@ -127,20 +122,18 @@
             // 
             // txtCalculate
             // 
-            txtCalculate.Location = new Point(418, 231);
-            txtCalculate.Margin = new Padding(2);
+            txtCalculate.Location = new Point(597, 385);
             txtCalculate.Multiline = true;
             txtCalculate.Name = "txtCalculate";
             txtCalculate.ReadOnly = true;
-            txtCalculate.Size = new Size(311, 199);
+            txtCalculate.Size = new Size(443, 329);
             txtCalculate.TabIndex = 8;
             // 
             // btnClear
             // 
-            btnClear.Location = new Point(146, 434);
-            btnClear.Margin = new Padding(2);
+            btnClear.Location = new Point(209, 723);
             btnClear.Name = "btnClear";
-            btnClear.Size = new Size(78, 20);
+            btnClear.Size = new Size(111, 33);
             btnClear.TabIndex = 9;
             btnClear.Text = "Clear All";
             btnClear.UseVisualStyleBackColor = true;
@@ -148,10 +141,9 @@
             // 
             // btnRemove
             // 
-            btnRemove.Location = new Point(64, 434);
-            btnRemove.Margin = new Padding(2);
+            btnRemove.Location = new Point(91, 723);
             btnRemove.Name = "btnRemove";
-            btnRemove.Size = new Size(78, 20);
+            btnRemove.Size = new Size(111, 33);
             btnRemove.TabIndex = 10;
             btnRemove.Text = "Remove Bill";
             btnRemove.UseVisualStyleBackColor = true;
@@ -160,43 +152,71 @@
             // lblAmount
             // 
             lblAmount.AutoSize = true;
-            lblAmount.Location = new Point(405, 129);
-            lblAmount.Margin = new Padding(2, 0, 2, 0);
+            lblAmount.Location = new Point(579, 215);
             lblAmount.Name = "lblAmount";
-            lblAmount.Size = new Size(51, 15);
+            lblAmount.Size = new Size(77, 25);
             lblAmount.TabIndex = 11;
             lblAmount.Text = "Amount";
             // 
             // lblDescription
             // 
             lblDescription.AutoSize = true;
-            lblDescription.Location = new Point(65, 129);
-            lblDescription.Margin = new Padding(2, 0, 2, 0);
+            lblDescription.Location = new Point(93, 215);
             lblDescription.Name = "lblDescription";
-            lblDescription.Size = new Size(67, 15);
+            lblDescription.Size = new Size(102, 25);
             lblDescription.TabIndex = 12;
             lblDescription.Text = "Description";
             // 
             // txtDescription
             // 
-            txtDescription.Location = new Point(64, 162);
-            txtDescription.Margin = new Padding(2);
+            txtDescription.Location = new Point(91, 270);
             txtDescription.Name = "txtDescription";
-            txtDescription.Size = new Size(106, 23);
+            txtDescription.Size = new Size(150, 31);
             txtDescription.TabIndex = 13;
             // 
             // dtpDueDate
             // 
-            dtpDueDate.Location = new Point(187, 162);
+            dtpDueDate.Location = new Point(267, 270);
+            dtpDueDate.Margin = new Padding(4, 5, 4, 5);
             dtpDueDate.Name = "dtpDueDate";
-            dtpDueDate.Size = new Size(200, 23);
+            dtpDueDate.Size = new Size(292, 31);
             dtpDueDate.TabIndex = 15;
+            // 
+            // lblIncomeAmount
+            // 
+            lblIncomeAmount.AutoSize = true;
+            lblIncomeAmount.Location = new Point(91, 38);
+            lblIncomeAmount.Name = "lblIncomeAmount";
+            lblIncomeAmount.Size = new Size(141, 25);
+            lblIncomeAmount.TabIndex = 16;
+            lblIncomeAmount.Text = "Income Amount";
+            // 
+            // lblPayFrequency
+            // 
+            lblPayFrequency.AutoSize = true;
+            lblPayFrequency.Location = new Point(289, 38);
+            lblPayFrequency.Name = "lblPayFrequency";
+            lblPayFrequency.Size = new Size(125, 25);
+            lblPayFrequency.TabIndex = 17;
+            lblPayFrequency.Text = "Pay Frequency";
+            // 
+            // cmbPayFrequency
+            // 
+            cmbPayFrequency.FormattingEnabled = true;
+            cmbPayFrequency.Location = new Point(267, 93);
+            cmbPayFrequency.Name = "cmbPayFrequency";
+            cmbPayFrequency.Size = new Size(206, 33);
+            cmbPayFrequency.TabIndex = 18;
+            cmbPayFrequency.Text = "-- Select Frequency --";
             // 
             // BudgetTracker
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(2109, 1000);
+            ClientSize = new Size(1924, 1170);
+            Controls.Add(cmbPayFrequency);
+            Controls.Add(lblPayFrequency);
+            Controls.Add(lblIncomeAmount);
             Controls.Add(dtpDueDate);
             Controls.Add(txtDescription);
             Controls.Add(lblDescription);
@@ -211,8 +231,6 @@
             Controls.Add(lstBills);
             Controls.Add(lblBills);
             Controls.Add(lblWeeklyBills);
-            Controls.Add(lblIncome);
-            Margin = new Padding(2);
             Name = "BudgetTracker";
             Text = "Budget Tracker";
             Load += Form1_Load;
@@ -238,5 +256,8 @@
         private TextBox txtDescription;
         private Label lblDate;
         private DateTimePicker dtpDueDate;
+        private Label lblIncomeAmount;
+        private Label lblPayFrequency;
+        private ComboBox cmbPayFrequency;
     }
 }
