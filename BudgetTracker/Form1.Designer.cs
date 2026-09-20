@@ -46,6 +46,8 @@
             lblIncomeAmount = new Label();
             lblPayFrequency = new Label();
             cmbPayFrequency = new ComboBox();
+            lblPayDate = new Label();
+            dtpPayDate = new DateTimePicker();
             SuspendLayout();
             // 
             // lblIncome
@@ -209,11 +211,30 @@
             cmbPayFrequency.TabIndex = 18;
             cmbPayFrequency.Text = "-- Select Frequency --";
             // 
+            // lblPayDate
+            // 
+            lblPayDate.AutoSize = true;
+            lblPayDate.Location = new Point(496, 38);
+            lblPayDate.Name = "lblPayDate";
+            lblPayDate.Size = new Size(81, 25);
+            lblPayDate.TabIndex = 19;
+            lblPayDate.Text = "Pay Date";
+            // 
+            // dtpPayDate
+            // 
+            dtpPayDate.Location = new Point(496, 95);
+            dtpPayDate.Margin = new Padding(4, 5, 4, 5);
+            dtpPayDate.Name = "dtpPayDate";
+            dtpPayDate.Size = new Size(292, 31);
+            dtpPayDate.TabIndex = 20;
+            // 
             // BudgetTracker
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1924, 1170);
+            Controls.Add(dtpPayDate);
+            Controls.Add(lblPayDate);
             Controls.Add(cmbPayFrequency);
             Controls.Add(lblPayFrequency);
             Controls.Add(lblIncomeAmount);
@@ -259,5 +280,7 @@
         private Label lblIncomeAmount;
         private Label lblPayFrequency;
         private ComboBox cmbPayFrequency;
+        private Label lblPayDate;
+        private DateTimePicker dtpPayDate;
     }
 }

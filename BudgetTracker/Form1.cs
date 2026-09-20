@@ -18,6 +18,13 @@ namespace BudgetTracker
             decimal savings;
             decimal personal;
             decimal emergency;
+            DateTime payDate = dtpPayDate.Value.Date;
+            int month = payDate.Month;
+            int year = payDate.Year;
+            DateTime firstDayOfMonth = new DateTime(year, month, 1);
+            DateTime lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+            int numberOfPayCycles = 0;
+
             if (decimal.TryParse(txtIncome.Text, out income))
             {
                 if (cmbPayFrequency.SelectedIndex == -1)
@@ -25,23 +32,28 @@ namespace BudgetTracker
                     MessageBox.Show("Please select a pay frequency.");
                     return;
                 }
-                else  
+
+                while (payDate <= lastDayOfMonth)
                 {
-                    IncomeFrequency pay = (IncomeFrequency)cmbPayFrequency.SelectedItem;
-                    if (pay == IncomeFrequency.Weekly)
+                    numberOfPayCycles++;
+                    if (cmbPayFrequency.SelectedItem is IncomeFrequency payFrequency)
                     {
-                        income *= 4; // Convert weekly income to monthly
-                    }
-                    else if (pay == IncomeFrequency.Fortnightly)
-                    {
-                        income *= 2; // Convert fortnightly income to monthly
-                    }
-                    else if (pay == IncomeFrequency.Monthly)
-                    {
-                        // No conversion needed for monthly income
+                        if (payFrequency == IncomeFrequency.Weekly)
+                        {
+                            payDate = payDate.AddDays(7);
+                        }
+                        else if (payFrequency == IncomeFrequency.Fortnightly)
+                        {
+                            payDate = payDate.AddDays(14);
+                        }
+                        else if (payFrequency == IncomeFrequency.Monthly)
+                        {
+                            payDate = payDate.AddMonths(1);
+                        }
                     }
                 }
-                
+                income *= numberOfPayCycles;
+
                 foreach (Bill bill in bills)
                 {
                     totalBills += bill.Amount;
@@ -145,6 +157,8 @@ namespace BudgetTracker
             txtIncome.Clear();
             txtAmount.Clear();
             txtDescription.Clear();
+            cmbPayFrequency.SelectedIndex = -1; // Reset to default selection
+            cmbPayFrequency.Text = "-- Select Frequency --"; // Reset the text to default
 
             MessageBox.Show("Everything has been cleared.");
         }
