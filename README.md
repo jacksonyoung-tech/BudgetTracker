@@ -58,11 +58,11 @@ This project has given me practical experience with:
 
 ### v0.1.0
 
-![BudgetTracker v0.1.0](Screenshots/BudgetTracker%20v0.1.0.png)
+![BudgetTracker v0.1.0](BudgetTracker%20v0.1.0.png)
 
 ### v0.2.0
 
-![BudgetTracker v0.2.0](Screenshots/BudgetTracker%20v0.2.0.png)
+![BudgetTracker v0.2.0](BudgetTracker%20v.0.2.0.png)
 
 ## Getting Started
 
