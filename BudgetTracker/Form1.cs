@@ -84,6 +84,15 @@ namespace BudgetTracker
             cmbPayFrequency.Items.Add(IncomeFrequency.Weekly);
             cmbPayFrequency.Items.Add(IncomeFrequency.Fortnightly);
             cmbPayFrequency.Items.Add(IncomeFrequency.Monthly);
+
+            cmbBillFrequency.Text = "-- Select Frequency --";
+            cmbBillFrequency.Items.Add(BillFrequency.OneOff);
+            cmbBillFrequency.Items.Add(BillFrequency.Weekly);
+            cmbBillFrequency.Items.Add(BillFrequency.Fortnightly);
+            cmbBillFrequency.Items.Add(BillFrequency.Monthly);
+            cmbBillFrequency.Items.Add(BillFrequency.Quarterly);
+            cmbBillFrequency.Items.Add(BillFrequency.EverySixMonths);
+            cmbBillFrequency.Items.Add(BillFrequency.Yearly);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -106,11 +115,19 @@ namespace BudgetTracker
                  If it is not empty, it will capitalize the first letter of the description and add the bill to the list*/
                 if (!string.IsNullOrWhiteSpace(txtDescription.Text))
                 {
+                    if (cmbBillFrequency.SelectedIndex == -1)
+                    {
+                    MessageBox.Show("Please select a bill frequency.");
+                    return;
+                    }
+                
                     txtDescription.Text = txtDescription.Text.Substring(0, 1).ToUpper() + txtDescription.Text.Substring(1);
-                    bills.Add(new Bill { Amount = bill, Description = txtDescription.Text, DueDate = dtpDueDate.Value.Date });
-                    lstBills.Items.Add($"Bill: {txtDescription.Text} | Due Date: {dtpDueDate.Value.Date.ToString("d")} | Amount: {bill.ToString("C")}");
+                    bills.Add(new Bill { Amount = bill, Description = txtDescription.Text, DueDate = dtpDueDate.Value.Date, Frequency = (BillFrequency)cmbBillFrequency.SelectedItem });
+                    lstBills.Items.Add($"Bill: {txtDescription.Text} | Due Date: {dtpDueDate.Value.Date.ToString("d")} | Amount: {bill.ToString("C")} | Frequency: {cmbBillFrequency.SelectedItem}");
                     txtAmount.Clear();
                     txtDescription.Clear();
+                    cmbBillFrequency.SelectedIndex = -1;
+                    cmbBillFrequency.Text = "-- Select Frequency --";
                 }
                 else
                 {
@@ -123,6 +140,7 @@ namespace BudgetTracker
                 MessageBox.Show("Please enter a valid number.");
                 txtAmount.Clear();
             }
+
         }
 
         private void btnCalculate_Click(object sender, EventArgs e)
@@ -159,6 +177,8 @@ namespace BudgetTracker
             txtDescription.Clear();
             cmbPayFrequency.SelectedIndex = -1; // Reset to default selection
             cmbPayFrequency.Text = "-- Select Frequency --"; // Reset the text to default
+            cmbBillFrequency.SelectedIndex = -1; // Reset to default selection
+            cmbBillFrequency.Text = "-- Select Frequency --"; // Reset the text to default
 
             MessageBox.Show("Everything has been cleared.");
         }
