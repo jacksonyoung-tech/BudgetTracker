@@ -56,7 +56,7 @@ namespace BudgetTracker
 
                 foreach (Bill bill in bills)
                 {
-                    totalBills += bill.Amount;
+                    totalBills += CalculateMonthlyBillTotal(bill, firstDayOfMonth, lastDayOfMonth);
                 }
                 leftOver = income - totalBills;
                 if (leftOver < 0)
@@ -75,6 +75,77 @@ namespace BudgetTracker
             {
                 MessageBox.Show("Please enter a valid income amount.");
             }
+        }
+        private decimal CalculateMonthlyBillTotal(Bill bill, DateTime firstDayOfMonth, DateTime lastDayOfMonth)
+        {
+            // Implementation for calculating monthly bill total
+            int numberOfOccurrences = 0;
+            DateTime nextDueDate = bill.DueDate;
+
+            while (nextDueDate < firstDayOfMonth)
+            {
+                if (bill.Frequency == BillFrequency.OneOff)
+                {
+                    return 0m; // One-off bills that are due before the first day of the month are not counted
+                }
+                else if (bill.Frequency == BillFrequency.Weekly)
+                {
+                    nextDueDate = nextDueDate.AddDays(7);
+                }
+                else if (bill.Frequency == BillFrequency.Fortnightly)
+                {
+                    nextDueDate = nextDueDate.AddDays(14);
+                }
+                else if (bill.Frequency == BillFrequency.Monthly)
+                {
+                    nextDueDate = nextDueDate.AddMonths(1);
+                }
+                else if (bill.Frequency == BillFrequency.Quarterly)
+                {
+                    nextDueDate = nextDueDate.AddMonths(3);
+                }
+                else if (bill.Frequency == BillFrequency.EverySixMonths)
+                {
+                    nextDueDate = nextDueDate.AddMonths(6);
+                }
+                else if (bill.Frequency == BillFrequency.Yearly)
+                {
+                    nextDueDate = nextDueDate.AddYears(1);
+                }
+            }
+            while (nextDueDate <= lastDayOfMonth)
+            {
+                numberOfOccurrences++;
+                if (bill.Frequency == BillFrequency.OneOff)
+                {
+                    break; // One-off bills are only counted once
+                }
+                else if (bill.Frequency == BillFrequency.Weekly)
+                {
+                    nextDueDate = nextDueDate.AddDays(7);
+                }
+                else if (bill.Frequency == BillFrequency.Fortnightly)
+                {
+                    nextDueDate = nextDueDate.AddDays(14);
+                }
+                else if (bill.Frequency == BillFrequency.Monthly)
+                {
+                    nextDueDate = nextDueDate.AddMonths(1);
+                }
+                else if (bill.Frequency == BillFrequency.Quarterly)
+                {
+                    nextDueDate = nextDueDate.AddMonths(3);
+                }
+                else if (bill.Frequency == BillFrequency.EverySixMonths)
+                {
+                    nextDueDate = nextDueDate.AddMonths(6);
+                }
+                else if (bill.Frequency == BillFrequency.Yearly)
+                {
+                    nextDueDate = nextDueDate.AddYears(1);
+                }
+            }
+            return bill.Amount * numberOfOccurrences;
         }
         public BudgetTracker()
         {
