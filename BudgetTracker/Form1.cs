@@ -81,9 +81,11 @@ namespace BudgetTracker
             // Implementation for calculating monthly bill total
             int numberOfOccurrences = 0;
             DateTime nextDueDate = bill.DueDate;
+            DateTime originalDueDate = bill.DueDate;            
+            int originalDay = originalDueDate.Day;            
 
             while (nextDueDate < firstDayOfMonth)
-            {
+            {               
                 if (bill.Frequency == BillFrequency.OneOff)
                 {
                     return 0m; // One-off bills that are due before the first day of the month are not counted
@@ -98,19 +100,35 @@ namespace BudgetTracker
                 }
                 else if (bill.Frequency == BillFrequency.Monthly)
                 {
-                    nextDueDate = nextDueDate.AddMonths(1);
+                    DateTime nextMonthDate = nextDueDate.AddMonths(1);
+                    int daysInMonth = DateTime.DaysInMonth(nextMonthDate.Year, nextMonthDate.Month);
+                    int adjustedDay = Math.Min(originalDay, daysInMonth);
+
+                    nextDueDate = new DateTime(nextMonthDate.Year, nextMonthDate.Month, adjustedDay);
                 }
                 else if (bill.Frequency == BillFrequency.Quarterly)
                 {
-                    nextDueDate = nextDueDate.AddMonths(3);
+                    DateTime nextQuarterDate = nextDueDate.AddMonths(3);
+                    int daysInMonth = DateTime.DaysInMonth(nextQuarterDate.Year, nextQuarterDate.Month);
+                    int adjustedDay = Math.Min(originalDay, daysInMonth);
+
+                    nextDueDate = new DateTime(nextQuarterDate.Year, nextQuarterDate.Month, adjustedDay);
                 }
                 else if (bill.Frequency == BillFrequency.EverySixMonths)
                 {
-                    nextDueDate = nextDueDate.AddMonths(6);
+                    DateTime nextEverySixMonthDate = nextDueDate.AddMonths(6);
+                    int daysInMonth = DateTime.DaysInMonth(nextEverySixMonthDate.Year, nextEverySixMonthDate.Month);
+                    int adjustedDay = Math.Min(originalDay, daysInMonth);
+
+                    nextDueDate = new DateTime(nextEverySixMonthDate.Year, nextEverySixMonthDate.Month, adjustedDay);
                 }
                 else if (bill.Frequency == BillFrequency.Yearly)
                 {
-                    nextDueDate = nextDueDate.AddYears(1);
+                    DateTime nextYearDate = nextDueDate.AddYears(1);
+                    int daysInMonth = DateTime.DaysInMonth(nextYearDate.Year, nextYearDate.Month);
+                    int adjustedDay = Math.Min(originalDay, daysInMonth);
+
+                    nextDueDate = new DateTime(nextYearDate.Year, nextYearDate.Month, adjustedDay);
                 }
             }
             while (nextDueDate <= lastDayOfMonth)
@@ -130,19 +148,35 @@ namespace BudgetTracker
                 }
                 else if (bill.Frequency == BillFrequency.Monthly)
                 {
-                    nextDueDate = nextDueDate.AddMonths(1);
+                    DateTime nextMonthDate = nextDueDate.AddMonths(1);
+                    int daysInMonth = DateTime.DaysInMonth(nextMonthDate.Year, nextMonthDate.Month);
+                    int adjustedDay = Math.Min(originalDay, daysInMonth);
+
+                    nextDueDate = new DateTime(nextMonthDate.Year, nextMonthDate.Month, adjustedDay);
                 }
                 else if (bill.Frequency == BillFrequency.Quarterly)
                 {
-                    nextDueDate = nextDueDate.AddMonths(3);
+                    DateTime nextQuarterDate = nextDueDate.AddMonths(3);
+                    int daysInMonth = DateTime.DaysInMonth(nextQuarterDate.Year, nextQuarterDate.Month);
+                    int adjustedDay = Math.Min(originalDay, daysInMonth);
+
+                    nextDueDate = new DateTime(nextQuarterDate.Year, nextQuarterDate.Month, adjustedDay);
                 }
                 else if (bill.Frequency == BillFrequency.EverySixMonths)
                 {
-                    nextDueDate = nextDueDate.AddMonths(6);
+                    DateTime nextEverySixMonthDate = nextDueDate.AddMonths(6);
+                    int daysInMonth = DateTime.DaysInMonth(nextEverySixMonthDate.Year, nextEverySixMonthDate.Month);
+                    int adjustedDay = Math.Min(originalDay, daysInMonth);
+
+                    nextDueDate = new DateTime(nextEverySixMonthDate.Year, nextEverySixMonthDate.Month, adjustedDay);
                 }
                 else if (bill.Frequency == BillFrequency.Yearly)
                 {
-                    nextDueDate = nextDueDate.AddYears(1);
+                    DateTime nextYearDate = nextDueDate.AddYears(1);
+                    int daysInMonth = DateTime.DaysInMonth(nextYearDate.Year, nextYearDate.Month);
+                    int adjustedDay = Math.Min(originalDay, daysInMonth);
+
+                    nextDueDate = new DateTime(nextYearDate.Year, nextYearDate.Month, adjustedDay);
                 }
             }
             return bill.Amount * numberOfOccurrences;
